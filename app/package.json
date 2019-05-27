@@ -7,7 +7,7 @@
     
     
     "lint:es": "eslint --ext .js src mock tests",
-    "lint:ts": "tslint \"src/**/*.ts\" \"src/**/*.tsx\"",
+    "lint:ts": "tslint \"src/**/*.ts\" \"src/**/*.tsx\""
     
   },
   "dependencies": {
