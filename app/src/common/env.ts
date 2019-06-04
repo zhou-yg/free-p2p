@@ -1,4 +1,4 @@
-enum EnvType {
+export enum EnvType {
   browser,
   desktop,
 }
