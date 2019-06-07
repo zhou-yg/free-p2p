@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "start": "umi dev",
-    "build": "umi build",
+    "build:desktop": "Env=d umi build",
+    "build:browser": "Env=b umi build",
     "test": "umi test",
     
     

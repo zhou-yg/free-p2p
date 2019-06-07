@@ -14,3 +14,5 @@ config.local.js
 # lib
 es
 _test/
+
+app-dist

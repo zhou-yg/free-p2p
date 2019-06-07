@@ -1,15 +1,17 @@
 export enum EnvType {
-  browser,
-  desktop,
+  browser = 'browser',
+  desktop = 'desktop',
 }
 
 const defautsEnv = {
-  type: EnvType.browser,
+  browser: true,
 };
 
 
-if (window.REGISTER_ENV) {
-  Object.assign(defautsEnv, window.REGISTER_ENV)
+if (process.env.Adapter === EnvType.desktop) {
+  Object.assign(defautsEnv, {
+    "browser": false,
+  })
 }
 
 
