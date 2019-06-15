@@ -14,3 +14,6 @@ config.local.js
 # lib
 es
 __test
+test/Peer-to-Peer-Cue-System/
+test/stun/
+test/peerjs/
