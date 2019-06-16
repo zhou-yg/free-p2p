@@ -17,3 +17,5 @@ __test
 test/Peer-to-Peer-Cue-System/
 test/stun/
 test/peerjs/
+
+app-dist
