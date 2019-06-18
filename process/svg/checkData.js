@@ -1,54 +1,52 @@
-import {NODE_COLLECTION} from '../data'
-
-function getTargetNodeByType (nodes, type) {
-  return nodes.filter(n => n.type === type)[0]
-}
+import {NODE_COLLECTION, getExtractNodes} from '../data';
 
 export default function checkData (nodes) {
-  let finalErrorText = null
-  let finalEerrorId = null
-  let successIds = []
-  let errorIds = []
+  let successIds = [];
+  let errorIds = [];
+
+  let finalErrorText = null;
+  let finalEerrorId = null;
+
   nodes.forEach(nodeObj => {
-    // if (errorText) {
-    //   return
-    // }
-    let errorText
-    let errorId
+    let errorText;
+    let errorId;
+
     switch (nodeObj.type) {
-      // case NODE_COLLECTION.InitialState.type:
-      //   if (!nodeObj.formData.variables.length) {
-      //     errorId = nodeObj.id
-      //     errorText = `"${nodeObj.name}"节点必须要一个变量`
-      //   }
-      //   break
-      case NODE_COLLECTION.SendSmsMessage.type:
-        if (!nodeObj.formData.yunpianTemplateId) {
-          errorId = nodeObj.id
-          errorText = `"${nodeObj.name}"节点必须要选择一个模板`
+      case NODE_COLLECTION.crowd.type:
+        if (!nodeObj.formData.crowdId && nodeObj.formData.crowdId !== 0) {
+          errorText = `"${nodeObj.name}"节点必须选择一个人群`;
+          errorId = nodeObj.id;
         }
-        break
-      case NODE_COLLECTION.SendWechatMessage.type:
-        if (!nodeObj.formData.wxTemplateId) {
-          errorId = nodeObj.id
-          errorText = `"${nodeObj.name}"节点必须要选择一个模板`
+        break;
+
+      case NODE_COLLECTION.sms.type:
+        if (!nodeObj.formData.tmpl) {
+          errorText = `"${nodeObj.name}"节点必须填写"短信文案"`;
+          errorId = nodeObj.id;
         }
-        break
+        break;
+      case NODE_COLLECTION.coupon.type:
+        if (!nodeObj.formData.couponId) {
+          errorText = `"${nodeObj.name}"节点必须选择一个优惠券`;
+          errorId = nodeObj.id;
+        }
+        break;
     }
+
     if (!errorText) {
-      successIds.push(nodeObj.id)
+      successIds.push(nodeObj.id);
     } else {
-      errorIds.push(nodeObj.id)
+      errorIds.push(nodeObj.id);
     }
     if (!finalErrorText && errorText) {
-      finalErrorText = errorText
-      finalEerrorId = errorId
+      finalErrorText = errorText;
+      finalEerrorId = errorId;
     }
-  })
+  });
   return {
     errorText: finalErrorText,
     errorId: finalEerrorId,
     errorIds,
-    successIds
-  }
+    successIds,
+  };
 }

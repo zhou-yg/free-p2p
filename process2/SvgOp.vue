@@ -2,37 +2,37 @@
 /**
  * Created by zhouyg.
  */
-import Vue from 'vue';
+import Vue from 'vue'
 const Cpt = Vue.extend({
-  components: {},
-  props: {},
-  data() {
+  components: {
+  },
+  props: {
+  },
+  data () {
     return {
       isFull: false,
-      isFullScreenEnabled: document.fullscreenEnabled,
-    };
+      isFullScreenEnabled: document.fullscreenEnabled
+    }
   },
   computed: {
-
   },
-  mounted() {
+  mounted () {
     document.addEventListener('fullscreenchange', (e) => {
-      this.isFull = !this.isFull;
-    });
+      this.isFull = !this.isFull
+    })
   },
-  beforeDestroy() {
+  beforeDestroy () {
     document.removeEventListener('fullscreenchange', (e) => {
-      this.isFull = !this.isFull;
-    });
+      this.isFull = !this.isFull
+    })
   },
   methods: {
-    reqFull() {
-      this.$emit('fullScreen', !this.isFull);
-    },
-  },
-});
-
-export default Cpt;
+    reqFull () {
+      this.$emit('fullScreen', !this.isFull)
+    }
+  }
+})
+export default Cpt
 </script>
 
 <template lang="html">
@@ -45,15 +45,14 @@ export default Cpt;
     </div>
     <div v-if="isFullScreenEnabled" class="op fs" @click="reqFull">
       <span v-if="isFull" class="shrink">
-        &#xe6d4;
+        &#xe6a5;
       </span>
-      <span v-else >&#xe6d3;</span>
+      <span v-else >&#xe6a4;</span>
     </div>
   </div>
 </template>
 
-<style lang="css">
-@import 'src/assets/styles/var.css';
+<style lang="less" type="text/less" >
 .svg-op{
   background-color: #fff;
   border: 1px solid  #D3D3D3;
@@ -65,9 +64,9 @@ export default Cpt;
   z-index: 1;
   > .op {
     border-right: 1px solid #D3D3D3;
-    width: 40px;
-    line-height: 30px;
-    height: 30px;
+    width: 46px;
+    line-height: 46px;
+    height: 46px;
     text-align: center;
     user-select: none;
 
