@@ -1,17 +1,16 @@
 import Peer from 'peerjs';
 
 let lastPeerId:string;
-let peerId = null;
-let conn:Peer.DataConnection | null;
+let conn: Peer.DataConnection;
 
 const peer = new Peer(undefined, {
   debug: 2,
   host: '207.148.114.234',
-  // host: 'localhost',
   key: 'peerjs',
   port: 9000,
   path: '/myappx',
 });
+
 
 peer.on('open', function (id) {
   // Workaround for peer.reconnect deleting previous id
@@ -24,20 +23,6 @@ peer.on('open', function (id) {
 
   console.log('ID: ' + peer.id);
 });
-peer.on('connection', function (c) {
-  // Allow only a single connection
-  if (conn) {
-    c.on('open', function () {
-      c.send("Already connected to another client");
-      setTimeout(function () { c.close(); }, 500);
-    });
-    return;
-  }
-
-  conn = c;
-  console.log("Connected to: " + conn.peer);
-  ready();
-});
 peer.on('disconnected', function () {
   console.log('Connection lost. Please reconnect');
 
@@ -46,21 +31,32 @@ peer.on('disconnected', function () {
   peer.reconnect();
 });
 peer.on('close', function () {
+  conn = null;
   console.log('Connection destroyed');
 });
 peer.on('error', function (err) {
-  console.error(err);
+  console.log(err);
+  alert('' + err);
 });
 
-function ready() {
-  if (conn) {
-    // conn.on('data', function (data) {
-    //   console.log("Data recieved");
-    // });
-    conn.on('close', function () {
-      conn = null;
-    });
-  }
+
+export const connectTo = (id:string) => {
+  conn = peer.connect(id, {
+    reliable: true
+  });
+
+  conn.on('open', function () {
+    console.log("Connected to: " + conn.peer);
+
+    // Check URL params for comamnds that should be sent immediately
+    // conn.send(command);
+  });
+  // Handle incoming data (messages only since this is the signal sender)
+  conn.on('data', function (data) {
+  });
+  conn.on('close', function () {
+  });
+
 }
 
-export const getDataConnection = () => conn;
+export const getSender = () => conn;
