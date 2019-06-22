@@ -1,5 +1,3 @@
-import { string } from "prop-types";
-
 declare module '*.css';
 declare module "*.png";
 

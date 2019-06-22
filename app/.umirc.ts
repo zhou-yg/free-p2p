@@ -1,11 +1,23 @@
-import b from './umirc.browser';
-import d from './umirc.desktop';
+export default {
+  treeShaking: true,
+  plugins: [
+    // ref: https://umijs.org/plugin/umi-plugin-react.html
+    ['umi-plugin-react', {
+      antd: true,
+      dva: true,
+      // dynamicImport: { webpackChunkName: true },
+      title: 'app',
+      // dll: true,
 
-let config;
-if (process.env.Env === 'b') {
-  config = b;
-} else {
-  config = d;
+      routes: {
+        exclude: [
+          /models\//,
+          /services\//,
+          /model\.(t|j)sx?$/,
+          /service\.(t|j)sx?$/,
+          /components\//,
+        ],
+      },
+    }],
+  ],
 }
-
-export default config;

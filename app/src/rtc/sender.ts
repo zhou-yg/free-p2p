@@ -1,7 +1,11 @@
 import Peer from 'peerjs';
+import EE from 'eventemitter3';
+import { Events } from './events';
+
+const eventCenter = new EE();
 
 let lastPeerId:string;
-let conn: Peer.DataConnection;
+let conn: Peer.DataConnection | null;
 
 const peer = new Peer(undefined, {
   debug: 2,
@@ -31,7 +35,6 @@ peer.on('disconnected', function () {
   peer.reconnect();
 });
 peer.on('close', function () {
-  conn = null;
   console.log('Connection destroyed');
 });
 peer.on('error', function (err) {
@@ -40,13 +43,13 @@ peer.on('error', function (err) {
 });
 
 
-export const connectTo = (id:string) => {
+export const connect = (id:string) => {
   conn = peer.connect(id, {
     reliable: true
   });
 
   conn.on('open', function () {
-    console.log("Connected to: " + conn.peer);
+    console.log("Connected to: " + (conn ? conn.peer : 'conn is null'));
 
     // Check URL params for comamnds that should be sent immediately
     // conn.send(command);
@@ -59,4 +62,16 @@ export const connectTo = (id:string) => {
 
 }
 
-export const getSender = () => conn;
+export const send = (s:string) => {
+  if (conn) {
+    conn.send(s)
+  } else {
+    throw new Error('conn is null');
+  }
+};
+
+// type FSubscribe<T> = (actionType: Events, cb: (r: T) => void) => void;
+
+export function subscribe<T>(actionType: Events, cb: (r: T) => void): void {
+  eventCenter.once(actionType, cb);
+}
