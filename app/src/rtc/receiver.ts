@@ -1,17 +1,22 @@
 import Peer from 'peerjs';
+import EE from 'eventemitter3';
+import { Events } from './events';
+
+const eventCenter = new EE();
 
 let lastPeerId:string;
-let peerId = null;
 let conn:Peer.DataConnection | null;
+
+console.log(2);
 
 const peer = new Peer(undefined, {
   debug: 2,
   host: '207.148.114.234',
-  // host: 'localhost',
   key: 'peerjs',
   port: 9000,
   path: '/myappx',
 });
+
 
 peer.on('open', function (id) {
   // Workaround for peer.reconnect deleting previous id
@@ -64,3 +69,11 @@ function ready() {
 }
 
 export const getDataConnection = () => conn;
+
+export const watch = (events: Array<[Events, () => void]>) => {
+  events.forEach(([event, callback]) => {
+    if (conn) {
+      eventCenter.emit(event, callback)
+    }
+  });
+}

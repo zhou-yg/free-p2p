@@ -55,7 +55,9 @@ export const connect = (id:string) => {
     // conn.send(command);
   });
   // Handle incoming data (messages only since this is the signal sender)
-  conn.on('data', function (data) {
+  conn.on('data', function (data:string) {
+    let d:[Events, {}] = JSON.parse(data);
+    eventCenter.emit(d[0] as string, d[1]);
   });
   conn.on('close', function () {
   });
