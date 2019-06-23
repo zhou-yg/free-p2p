@@ -1,8 +1,6 @@
-import Adapter from './index';
 import { send, subscribe } from '../../rtc/sender';
 import { Events } from '../../rtc/events';
 import { resolve } from 'path';
-import {IFile} from './index';
 
 export default class Browser extends Adapter {
   getFileList () {
