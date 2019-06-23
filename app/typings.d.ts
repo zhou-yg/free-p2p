@@ -5,7 +5,7 @@ interface IFile {
 }
 
 declare abstract class Adapter {
-
+  public env:string;
   public abstract getFileList(): Promise<IFile[]>;
 }
 

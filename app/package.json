@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "start": "umi dev",
+    "start": "UMI_ENV=browser umi dev",
     "build:desktop": "UMI_ENV=desktop umi build",
     "build:browser": "UMI_ENV=browser umi build",
     "test": "umi test",
@@ -13,6 +13,7 @@
     "antd": "^3.15.0",
     "dva": "^2.5.0-beta.2",
     "eventemitter3": "^4.0.0",
+    "peerjs": "^1.0.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },

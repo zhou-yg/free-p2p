@@ -1,12 +1,17 @@
 import { send, subscribe } from '../../rtc/sender';
 import { Events } from '../../rtc/events';
 import { resolve } from 'path';
+import Adapter from './index';
 
 export default class Browser extends Adapter {
+  constructor () {
+    super('browser')
+  }
   getFileList () {
-    
-    send(Events.GET_FILE_LIST);
 
+    console.log('send event:', Events.GET_FILE_LIST);
+
+    send(Events.GET_FILE_LIST);
 
     return new Promise<IFile[]>(resolve => {
 
@@ -16,3 +21,7 @@ export default class Browser extends Adapter {
     });
   }
 }
+
+const bb = new Browser();
+
+window.bb = bb;

@@ -1,9 +1,7 @@
 // ref: https://umijs.org/config/
 export default  {
   chainWebpack(config, arg) {
-    // console.log(config);
-    // console.log(arg);
-    config.entry('umi').prepend('./src/pages/index2.tsx');
+    config.entry('umi').prepend('./src/common/adapter/desktop.ts');
   },
   define: {
     'process.env.Adapter': 'desktop'
