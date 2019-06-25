@@ -2,7 +2,7 @@
 // ref: https://umijs.org/config/
 export default {
   chainWebpack(config, arg) {
-    config.entry('umi').prepend('./src/common/adapter/browser.ts');
+    config.entry('umi').prepend('./src/rtc/adapter/browser.ts');
   },
   define: {
     'process.env.Adapter': 'browser'

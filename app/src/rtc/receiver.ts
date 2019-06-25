@@ -38,7 +38,7 @@ peer.on('connection', function (c) {
     });
     return;
   }
-
+  console.log('c.peer: ', c.peer);
   conn = c;
   console.log("Connected to: " + conn.peer);
   ready();
@@ -46,8 +46,8 @@ peer.on('connection', function (c) {
 peer.on('disconnected', function () {
   console.log('Connection lost. Please reconnect');
   // Workaround for peer.reconnect deleting previous id
-  peer.id = lastPeerId;
-  peer.reconnect();
+  // peer.id = lastPeerId;
+  // peer.reconnect();
 });
 peer.on('close', function () {
   console.log('Connection destroyed');
@@ -63,7 +63,7 @@ function ready() {
 
       let d: [Events, {}] = JSON.parse(data);
 
-      
+
       eventCenter.emit(d[0] as string, d[1]);
     });
     conn.on('close', function () {

@@ -1,6 +1,6 @@
 import Adapter from './index';
-import {watch} from '../../rtc/receiver';
-import { Events } from '../../rtc/events';
+import {watch} from '../receiver';
+import { Events } from '../events';
 
 export default class Desktop extends Adapter {
   constructor () {

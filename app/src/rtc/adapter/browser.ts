@@ -1,5 +1,5 @@
-import { send, subscribe } from '../../rtc/sender';
-import { Events } from '../../rtc/events';
+import { send, subscribe } from '../sender';
+import { Events } from '../events';
 import { resolve } from 'path';
 import Adapter from './index';
 
