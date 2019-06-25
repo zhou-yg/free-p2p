@@ -1,6 +1,6 @@
 import Peer from 'peerjs';
 import EE from 'eventemitter3';
-import { Events } from './events';
+import { Events, DEV_CONNECTION_ID } from './events';
 
 const eventCenter = new EE();
 
@@ -57,16 +57,18 @@ export const connect = (id:string) => {
   // Handle incoming data (messages only since this is the signal sender)
   conn.on('data', function (data:string) {
     let d:[Events, {}] = JSON.parse(data);
+
+    console.log('receive:', d);
+
     eventCenter.emit(d[0] as string, d[1]);
   });
   conn.on('close', function () {
   });
-
 }
 
 export const send = (s:string) => {
   if (conn) {
-    conn.send(s)
+    conn.send(JSON.stringify([s]))
   } else {
     throw new Error('conn is null');
   }
@@ -77,3 +79,5 @@ export const send = (s:string) => {
 export function subscribe<T>(actionType: Events, cb: (r: T) => void): void {
   eventCenter.once(actionType, cb);
 }
+
+connect(DEV_CONNECTION_ID);
