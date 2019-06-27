@@ -4,5 +4,6 @@ export default abstract class Adapter {
   constructor(e:string) {
     this.env = e;
   }
-  public abstract getFileList(): Promise<IFile[]>;
+
+  public abstract fetch<T> (e: string, d: any): Promise<T>;
 }

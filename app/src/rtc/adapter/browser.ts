@@ -1,27 +1,27 @@
 import { send, subscribe } from '../sender';
-import { Events } from '../events';
-import { resolve } from 'path';
 import Adapter from './index';
 
-export default class Browser extends Adapter {
+class Browser extends Adapter {
   constructor () {
     super('browser')
   }
-  getFileList () {
 
-    console.log('send event:', Events.GET_FILE_LIST);
+  fetch<T> (event: string, d:any) {
 
-    send(Events.GET_FILE_LIST);
+    console.log('send event:', event);
 
-    return new Promise<IFile[]>(resolve => {
+    send(event, d);
 
-      subscribe<IFile[]>(Events.GET_FILE_LIST, (r) => {
+    return new Promise<T>(resolve => {
+
+      subscribe<T>(event, (r) => {
         resolve(r);
       });
     });
   }
 }
 
-const bb = new Browser();
 
-window.bb = bb;
+window.presetApi = (e?: any): Adapter => {
+  return new Browser();
+};

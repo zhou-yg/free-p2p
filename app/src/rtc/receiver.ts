@@ -1,7 +1,6 @@
 import Peer from 'peerjs';
 import EE from 'eventemitter3';
-import { Events, DEV_CONNECTION_ID } from './events';
-import { string } from 'prop-types';
+import { Events, DEV_CONNECTION_ID } from './constants';
 
 const eventCenter = new EE();
 
@@ -31,13 +30,14 @@ peer.on('open', function (id) {
 });
 peer.on('connection', function (c) {
   // Allow only a single connection
-  if (conn) {
-    c.on('open', function () {
-      c.send("Already connected to another client");
-      setTimeout(function () { c.close(); }, 500);
-    });
-    return;
-  }
+  // if (conn) {
+  //   c.on('open', function () {
+  //     c.send("Already connected to another client");
+  //     setTimeout(function () { c.close(); }, 500);
+  //   });
+  //   return;
+  // }
+
   console.log('c.peer: ', c.peer);
   conn = c;
   console.log("Connected to: " + conn.peer);
@@ -61,10 +61,10 @@ function ready() {
     conn.on('data', function (data) {
       console.log('receive:', data);
 
-      let d: [Events, {}] = JSON.parse(data);
+      let d: [string, {}] = JSON.parse(data);
 
 
-      eventCenter.emit(d[0] as string, d[1]);
+      eventCenter.emit(d[0], d[1]);
     });
     conn.on('close', function () {
       conn = null;
@@ -72,7 +72,7 @@ function ready() {
   }
 }
 
-function send (e:Events, v: any) {
+function send (e:string, v: any) {
   if (conn) {
     conn.send(JSON.stringify([e, v]));
   }
@@ -80,8 +80,8 @@ function send (e:Events, v: any) {
 
 export const getDataConnection = () => conn;
 
-export const watch = (events: Array<[Events, (send: (v:any) => void) => void]>) => {
+export const watch = (events: Array<[string, (param: any, send: (v:any) => void) => void]>) => {
   events.forEach(([event, callback]) => {
-    eventCenter.once(event, () => callback(v => send(event, v)));
+    eventCenter.on(event, (param: any) => callback(param, v => send(event, v)));
   });
 }

@@ -1,37 +1,35 @@
 import Adapter from './index';
 import {watch} from '../receiver';
-import { Events } from '../events';
+import { Events } from '../../common/events';
+import {desktop} from '../../common/native'
 
-export default class Desktop extends Adapter {
+class Desktop extends Adapter {
   constructor () {
     super('desktop');
   }
-  getFileList() {
-    return new Promise<IFile[]>(resolve => {
-
-      resolve([
-        {
-          id: '2',
-          name: '测试',
-          path: 'txt',
-        },
-      ]);
-    });
+  public fetch(e:string, d:any): Promise<any> {
+    return desktop[e](d);
   }
 }
 
 const dd = new Desktop();
 
-watch([
-  [Events.GET_FILE_LIST, async (send) => {
-    console.log('receive getFileList')
+let watchEvents:any = Object.keys(Events).map(k => {
+  k = Events[k];
+  return [
+    k,
+    async (data: any, send: any) => {
+      console.log('receive getFileList')
 
-    let files = await dd.getFileList();
+      let files = await dd.fetch(k, data);
 
-    console.log(files);
+      console.log(files);
 
-    send(files);
-  }]
-])
+      send(files);
+    },
+  ];
+});
 
-window.dd = dd;
+watch(watchEvents);
+
+window.presetApi = () => dd;

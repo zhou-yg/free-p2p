@@ -12,12 +12,24 @@ export default connect(state => state)(function (props) {
       type: 'finder/getFileList',
     })
   }
+  function get2 () {
+    props.dispatch({
+      type: 'finder/getFile',
+    })
+  }
 
   return (
     <div>
       {JSON.stringify(props.finder.files)}
+      <br/>
+      {JSON.stringify(props.finder.fileData)}
+
+      <hr/>
 
       <button onClick={get}>getFileList</button>
+      <br/>
+
+      <button onClick={get2}>getFileData</button>
     </div>
   );
 });
