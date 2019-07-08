@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react';
-
 import {connect} from 'dva';
+import fileMangerRender from '../../fileManager/src/index';
 
 export default connect(state => state)(function (props) {
   let [s, setData] = useState(0);
   useEffect(() => {
+
+    fileMangerRender(document.querySelector('#finder'));
+    
   }, [s]);
 
   function get () {
@@ -19,17 +22,8 @@ export default connect(state => state)(function (props) {
   }
 
   return (
-    <div>
-      {JSON.stringify(props.finder.files)}
-      <br/>
-      {JSON.stringify(props.finder.fileData)}
-
-      <hr/>
-
-      <button onClick={get}>getFileList</button>
-      <br/>
-
-      <button onClick={get2}>getFileData</button>
+    <div id="finder">
+      init
     </div>
   );
 });
