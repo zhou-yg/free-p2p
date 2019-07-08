@@ -1,8 +1,8 @@
-const host = 'http://localhost:8000';
+import { api } from '../../common/api';
 
 export default {
-    fetch: (url, query) => {
-        
+    fetch: (url, {body}) => {
+        api.fetch(url, body);
     },
 
     url_list: `list`,

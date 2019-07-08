@@ -22,7 +22,9 @@ import config from './../config.js';
  */
 export function list(path) {
     return config.fetch(config.url_list, {
-        path,
+        body: {
+            path,
+        },
     });
 };
 
@@ -40,7 +42,7 @@ export function createDirectory(path, directory) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
+        body: ({
             path, directory
         })
     });
@@ -54,7 +56,11 @@ export function createDirectory(path, directory) {
  * { "result": "<?php echo random(); ?>" }
  */
 export function getFileContent(path) {
-    return config.fetch(config.url_get_content + '?path=' + (encodeURIComponent(path) || '/'));
+    return config.fetch(config.url_get_content, {
+        body: {
+            path: path || '/',
+        },
+    });
 };
 
 
@@ -72,7 +78,7 @@ export function remove(path, filenames, recursive = true) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
+        body: ({
             path, filenames, recursive
         })
     });
@@ -92,7 +98,7 @@ export function move(path, destination, filenames) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
+        body: ({
             path, destination, filenames
         })
     });
@@ -112,7 +118,7 @@ export function rename(path, destination) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
+        body: ({
             path, destination
         })
     });
@@ -132,7 +138,7 @@ export function copy(path, destination, filenames) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
+        body: ({
             path, destination, filenames
         })
     });
@@ -145,6 +151,8 @@ export function copy(path, destination, filenames) {
  * @returns {Object}
  */
 export function upload(path, fileList, formData = new FormData()) {
+    throw new Error('未完成');
+    
     [...fileList].forEach(f => {
         formData.append('file[]', f);
     });
