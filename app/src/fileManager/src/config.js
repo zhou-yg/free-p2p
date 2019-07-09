@@ -1,11 +1,11 @@
-import { api } from '../../common/api';
+import { api, Events } from '../../common/api';
 
 export default {
     fetch: (url, {body}) => {
         api.fetch(url, body);
     },
 
-    url_list: `list`,
+    url_list: Events.GET_FILE_LIST,
     url_create_folder: `dir/create`,
     url_get_content: `file/content`,
     url_download: `file/content`,

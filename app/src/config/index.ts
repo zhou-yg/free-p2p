@@ -5,5 +5,5 @@ export default {
     key: 'peerjs',
     port: 9000,
     path: '/myappx',
-  }
-}
+  },
+};
