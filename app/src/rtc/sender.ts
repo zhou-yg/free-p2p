@@ -43,7 +43,7 @@ peer.on('error', function (err) {
 });
 
 
-export const connect = (id:string) => {
+export const connect = (id:string, cb: () => void) => {
   conn = peer.connect(id, {
     reliable: true
   });
@@ -51,6 +51,7 @@ export const connect = (id:string) => {
   conn.on('open', function () {
     console.log("Connected to: " + (conn ? conn.peer : 'conn is null'));
 
+    cb();
     // Check URL params for comamnds that should be sent immediately
     // conn.send(command);
   });
@@ -79,5 +80,3 @@ export const send = (s:string, d:any) => {
 export function subscribe<T>(actionType: string, cb: (r: T) => void): void {
   eventCenter.once(actionType, cb);
 }
-
-connect(DEV_CONNECTION_ID);

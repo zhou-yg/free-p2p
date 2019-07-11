@@ -7,4 +7,6 @@ export default  {
     'process.env.Adapter': 'desktop'
   },
   outputPath: '../desktop/app-dist/',
+
+  minimizer: false,
 }

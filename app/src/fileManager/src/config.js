@@ -2,6 +2,8 @@ import { api, Events } from '../../common/api';
 
 export default {
     fetch: (url, {body}) => {
+        console.log(url, body);
+
         api.fetch(url, body);
     },
 

@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "UMI_ENV=browser umi dev",
     "dev2": "UMI_ENV=desktop umi dev",
-    "build:desktop": "UMI_ENV=desktop umi build",
+    "build:desktop": "COMPRESS=none UMI_ENV=desktop umi build",
     "build:browser": "UMI_ENV=browser umi build",
     "test": "umi test",
     "lint:es": "eslint --ext .js src mock tests",

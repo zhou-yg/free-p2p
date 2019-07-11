@@ -12,7 +12,6 @@ import config from './config';
 
 export default function render (root) {
     
-
     const store = createStore(MainReducer, applyMiddleware(thunk));
     ReactDOM.render(
         <Provider store={store}>
