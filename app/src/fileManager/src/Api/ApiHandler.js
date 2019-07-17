@@ -14,35 +14,36 @@ const messageTranslation = {
  */
 const handleFetch = (resolve, reject) => {
     return {
-        xthen: (response) => {
-            const contentType = response.headers.get('content-type');
-            const contentDisp = response.headers.get('content-disposition');
-            const isJson = /(application|text)\/json/.test(contentType);
-            const isAttachment = /attachment/.test(contentDisp);
+        xthen: (data) => {
+            resolve(data);
+            // const contentType = response.headers.get('content-type');
+            // const contentDisp = response.headers.get('content-disposition');
+            // const isJson = /(application|text)\/json/.test(contentType);
+            // const isAttachment = /attachment/.test(contentDisp);
 
-            if (! response.ok) {
-                if (isJson) {
-                    throw response.json();
-                }
-                throw Error(messageTranslation['unknown_response']);
-            }
+            // if (! response.ok) {
+            //     if (isJson) {
+            //         throw response.json();
+            //     }
+            //     throw Error(messageTranslation['unknown_response']);
+            // }
 
-            if (isAttachment) {
-                response.blob().then(blob => {
-                    resolve(blob);
-                });
-                return;
-            }
+            // if (isAttachment) {
+            //     response.blob().then(blob => {
+            //         resolve(blob);
+            //     });
+            //     return;
+            // }
 
-            if (isJson) {
-                response.json().then(json => {
-                    if (! json.success) {
-                        throw new Error();
-                    }
-                    resolve(json.data);
-                });
-                return;
-            }
+            // if (isJson) {
+            //     response.json().then(json => {
+            //         if (! json.success) {
+            //             throw new Error();
+            //         }
+            //         resolve(json.data);
+            //     });
+            //     return;
+            // }
         },
         xcatch: (errorResponse) => {
             // is thrown json

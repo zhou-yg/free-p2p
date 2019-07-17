@@ -1,6 +1,6 @@
 import {Events} from './events';
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const HOME: string = (process.env.HOME || '');
 
@@ -14,10 +14,16 @@ export const desktop = {
     const fullPath = path.join(HOME, p);
 
     const dirs = fs.readdirSync(fullPath).map(name => {
+      const fileP = path.join(p, name);
+      const stat = fs.lstatSync(fileP);
       return {
         id: '',
         name,
-        path: path.join(p, name),
+        path: fileP,
+        rights: 'drwxr-xr-x',
+        size: String(stat.size),
+        date: String(new Date()),
+        type: stat.isDirectory() ? 'dir' : 'file',
       };
     });
 
@@ -25,12 +31,12 @@ export const desktop = {
       resolve(dirs);
     });
   },
-  [Events.GET_FILE_DATA](param?:any): Promise<IFileData> {
-    return Promise.resolve({
-      id: '2',
-      name: '测试',
-      path: 'txt',
-      data: Date.now(),
-    });
-  }
+  // [Events.GET_FILE_DATA](param?:any): Promise<IFileData> {
+    // return Promise.resolve(undefined);
+    //   id: '2',
+    //   name: '测试',
+    //   path: 'txt',
+    //   data: Date.now(),
+    // });
+  // }
 };

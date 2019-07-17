@@ -4,7 +4,7 @@ export default {
     fetch: (url, {body}) => {
         console.log(url, body);
 
-        api.fetch(url, body);
+        return api.fetch(url, body);
     },
 
     url_list: Events.GET_FILE_LIST,
