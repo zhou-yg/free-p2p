@@ -74,6 +74,7 @@ const BasicLayout = (props: {children: ReactChildren}) => {
         </Menu>
       </Sider>
       <Layout>
+      {/*
         <Sider style={{background:'#fff', borderRight:'1px solid #eee'}}>
           <Menu defaultSelectedKeys={['2']} mode="inline">
             <Menu.Item key="1" >
@@ -83,7 +84,7 @@ const BasicLayout = (props: {children: ReactChildren}) => {
               文件2号
             </Menu.Item>
           </Menu>
-        </Sider>
+        </Sider>*/}
         <Content style={{ margin: '16px 16px 0' }}>
           <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
             {props.children}

@@ -1,20 +1,22 @@
 import {Events} from './events';
 import fs from 'fs';
 import path from 'path';
-
+const env = process.env;
 const HOME: string = (process.env.HOME || '');
 
 console.log(fs);
 
-
 export const desktop = {
   [Events.GET_FILE_LIST](param?: any): Promise<IFile[]> {
-    console.log(param, param && param.path);
     const p = param ? param.path : '/';
     const fullPath = path.join(HOME, p);
 
-    const dirs = fs.readdirSync(fullPath).map(name => {
-      const fileP = path.join(p, name);
+    console.log(param, param && param.path, fullPath);
+
+    const dirs = fs.readdirSync(fullPath)
+    .filter(name => !/^\./.test(name))
+    .map(name => {
+      const fileP = path.join(fullPath, name);
       const stat = fs.lstatSync(fileP);
       return {
         id: '',
