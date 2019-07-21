@@ -6,10 +6,14 @@ const HOME: string = (process.env.HOME || '');
 
 console.log(fs);
 
+function resolvePath(p:string) {
+  return path.join(HOME, p);
+}
+
 export const desktop = {
   [Events.GET_FILE_LIST](param?: any): Promise<IFile[]> {
     const p = param ? param.path : '/';
-    const fullPath = path.join(HOME, p);
+    const fullPath = resolvePath(p);
 
     console.log(param, param && param.path, fullPath);
 
@@ -33,12 +37,14 @@ export const desktop = {
       resolve(dirs);
     });
   },
-  // [Events.GET_FILE_DATA](param?:any): Promise<IFileData> {
-    // return Promise.resolve(undefined);
-    //   id: '2',
-    //   name: '测试',
-    //   path: 'txt',
-    //   data: Date.now(),
-    // });
-  // }
+  [Events.GET_FILE_DATA](param?:any): Promise<Blob> {
+    const p = param ? param.path : '/';
+    const fullPath = resolvePath(p);
+
+    console.log(fullPath);
+
+    if (fs.lstatSync(fullPath).isFile()) {
+    }
+    return Promise.resolve(new Blob([fs.readFileSync(fullPath).toString()]));
+  },
 };

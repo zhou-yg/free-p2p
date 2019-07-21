@@ -15,6 +15,7 @@ const messageTranslation = {
 const handleFetch = (resolve, reject) => {
     return {
         xthen: (data) => {
+          console.log(`xthen.data:`, data);
             resolve(data);
             // const contentType = response.headers.get('content-type');
             // const contentDisp = response.headers.get('content-disposition');
@@ -229,7 +230,7 @@ export const getActionsByFile = (file, acts = []) => {
         typeof file.editable !== 'undefined' ?
             file.editable && acts.push('edit'):
             config.isEditableFilePattern.test(file.name) && acts.push('edit');
-        
+
         typeof file.extractable !== 'undefined' ?
             file.extractable && acts.push('extract'):
             config.isExtractableFilePattern.test(file.name) && acts.push('extract');

@@ -83,12 +83,12 @@ function SearchAppBar(props) {
       <AppBar position="relative">
         <Toolbar>
           <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-            <BreadcrumbText 
-                path={path} 
-                handleClickPath={handleClickPath} 
+            <BreadcrumbText
+                path={path}
+                handleClickPath={handleClickPath}
                 handleGoBack={handleGoBack}
                 canGoBack={canGoBack}
-                rootTitle="React Filemanager"
+                rootTitle="HOME"
             />
           </Typography>
           <div className={classes.grow} />
@@ -140,7 +140,7 @@ const mapDispatchToProps = (dispatch) => {
          * @param {Number} index
          * @param {Array} path
          * @returns {undefined}
-         */        
+         */
         handleClickPath: (event, index) => {
             dispatch(enterToPreviousDirectoryByIndex(index));
             event.preventDefault();

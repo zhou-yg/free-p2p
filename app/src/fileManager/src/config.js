@@ -9,8 +9,8 @@ export default {
 
     url_list: Events.GET_FILE_LIST,
     url_create_folder: `dir/create`,
-    url_get_content: `file/content`,
-    url_download: `file/content`,
+    url_get_content: Events.GET_FILE_DATA,
+    url_download: Events.GET_FILE_DATA,
     url_upload: `items/upload`,
     url_remove: `items/remove`,
     url_rename: `item/move`,
