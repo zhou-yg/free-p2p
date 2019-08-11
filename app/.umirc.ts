@@ -1,6 +1,7 @@
 export default {
   history: 'hash',
   treeShaking: true,
+  disableCSSModules: true,
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
     ['umi-plugin-react', {

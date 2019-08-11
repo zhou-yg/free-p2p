@@ -23,8 +23,6 @@ let watchEvents:any = Object.keys(Events).map(k => {
 
       let files = await dd.fetch(k, data);
 
-      console.log(files);
-
       send(files);
     },
   ];

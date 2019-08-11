@@ -8,10 +8,10 @@ export default {
     },
 
     url_list: Events.GET_FILE_LIST,
-    url_create_folder: `dir/create`,
+    url_create_folder: Events.CREATE_FOLDER,
     url_get_content: Events.GET_FILE_DATA,
     url_download: Events.GET_FILE_DATA,
-    url_upload: `items/upload`,
+    url_upload: Events.UPLOAD_FILE,
     url_remove: `items/remove`,
     url_rename: `item/move`,
     url_move: `items/move`,
@@ -20,6 +20,7 @@ export default {
     url_compress: `items/compress`,
     url_extract: `file/extract`,
 
+    // isEditableFilePattern: /\.(txt|diff?|patch|svg|asc|cnf|cfg|conf|html?|cfm|cgi|aspx?|ini|pl|py|md|css|cs|jsx?|jsp|log|htaccess|htpasswd|gitignore|gitattributes|env|json|atom|eml|rss|markdown|sql|xml|xslt?|sh|rb|as|bat|cmd|cob|for|ftn|frm|frx|inc|lisp|scm|coffee|php[3-6]?|java|c|cbl|go|h|scala|vb|tmpl|lock|go|yml|yaml|tsv|lst)$/i,
     isEditableFilePattern: /\.(txt|diff?|patch|svg|asc|cnf|cfg|conf|html?|cfm|cgi|aspx?|ini|pl|py|md|css|cs|jsx?|jsp|log|htaccess|htpasswd|gitignore|gitattributes|env|json|atom|eml|rss|markdown|sql|xml|xslt?|sh|rb|as|bat|cmd|cob|for|ftn|frm|frx|inc|lisp|scm|coffee|php[3-6]?|java|c|cbl|go|h|scala|vb|tmpl|lock|go|yml|yaml|tsv|lst)$/i,
     isImageFilePattern: /\.(jpe?g|gif|bmp|png|svg|tiff?)$/i,
     isExtractableFilePattern: /\.(gz|tar|rar|g?zip)$/i,

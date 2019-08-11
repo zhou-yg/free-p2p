@@ -15,7 +15,7 @@ const messageTranslation = {
 const handleFetch = (resolve, reject) => {
     return {
         xthen: (data) => {
-          console.log(`xthen.data:`, data);
+            console.log(`xthen.data:`, data);
             resolve(data);
             // const contentType = response.headers.get('content-type');
             // const contentDisp = response.headers.get('content-disposition');

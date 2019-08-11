@@ -151,8 +151,6 @@ export function copy(path, destination, filenames) {
  * @returns {Object}
  */
 export function upload(path, fileList, formData = new FormData()) {
-    throw new Error('未完成');
-    
     [...fileList].forEach(f => {
         formData.append('file[]', f);
     });
@@ -160,7 +158,7 @@ export function upload(path, fileList, formData = new FormData()) {
 
     return config.fetch(config.url_upload, {
         method: 'POST',
-        body: formData, 
+        body: formData,
         headers: {
             // a workaround for node connector, passing the path by header
             path: path
