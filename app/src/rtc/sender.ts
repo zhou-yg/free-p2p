@@ -69,7 +69,12 @@ export const connect = (id:string, cb: () => void) => {
 
 export const send = (s:string, d:any) => {
   if (conn) {
-    conn.send(JSON.stringify([s, d]))
+    if (d && d.constructor === Blob) {
+      const newBlob = new Blob([s, ';', d]);
+      conn.send(newBlob);
+    } else {
+      conn.send(JSON.stringify([s, d]))
+    }
   } else {
     throw new Error('conn is null');
   }

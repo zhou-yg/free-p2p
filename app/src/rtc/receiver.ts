@@ -1,6 +1,7 @@
 import Peer from 'peerjs';
 import EE from 'eventemitter3';
 import { Events, DEV_CONNECTION_ID } from './constants';
+import { parseBuffer } from './receiverUtils';
 
 const eventCenter = new EE();
 
@@ -59,10 +60,14 @@ peer.on('error', function (err) {
 function ready() {
   if (conn) {
     conn.on('data', function (data) {
-      console.log('receive:', data);
+      console.log('receive:', data, data.constructor);
 
-      let d: [string, {}] = JSON.parse(data);
-
+      let d: [string, {}];
+      if (data.constructor === ArrayBuffer) {
+        d = parseBuffer(data);
+      } else {
+        d = JSON.parse(data);
+      }
 
       eventCenter.emit(d[0], d[1]);
     });

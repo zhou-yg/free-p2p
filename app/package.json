@@ -4,7 +4,7 @@
     "dev": "UMI_ENV=browser umi dev",
     "dev2": "UMI_ENV=desktop umi dev",
     "build:desktop": "COMPRESS=none UMI_ENV=desktop umi build",
-    "build:browser": "UMI_ENV=browser umi build",
+    "build:browser": "CLEAR_CONSOLE=none UMI_ENV=browser umi build",
     "test": "umi test",
     "lint:es": "eslint --ext .js src mock tests",
     "lint:ts": "tslint \"src/**/*.ts\" \"src/**/*.tsx\""

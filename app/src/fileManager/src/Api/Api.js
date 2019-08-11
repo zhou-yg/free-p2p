@@ -151,14 +151,16 @@ export function copy(path, destination, filenames) {
  * @returns {Object}
  */
 export function upload(path, fileList, formData = new FormData()) {
-    [...fileList].forEach(f => {
-        formData.append('file[]', f);
-    });
-    formData.append('path', path);
+
+    const blob = new Blob([
+      `path=${path}&name=${fileList[0].name};`,
+      ...fileList,
+    ]);
+
 
     return config.fetch(config.url_upload, {
         method: 'POST',
-        body: formData,
+        body: blob,
         headers: {
             // a workaround for node connector, passing the path by header
             path: path

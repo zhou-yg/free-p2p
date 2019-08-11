@@ -68,26 +68,14 @@ export const desktop = {
       });
     })
   },
-  [Events.UPLOAD_FILE](fd: FormData) {
-    let promiseArr = [];
+  [Events.UPLOAD_FILE](qsData: {path:string, name:string, bufferData: Buffer}): Promise<string> {
 
-    const path = fd.get('path') as string;
-    fd.delete('path');
+    console.log('qsData:', qsData);
 
-    for(let item of fd) {
-      const [fdKey, fileObj] = item;
-      const { name, path:filePath } = fileObj;
-      let targetFilePath = resolvePath([path, name]);
+    let targetFilePath = resolvePath([qsData.path, qsData.name]);
 
-      promiseArr.push(new Promise((resolve) => {
-        const rs = fs.createReadStream(filePath as string);
-        const ws = fs.createWriteStream(targetFilePath);
-        ws.on('finish', () => {
-          resolve(targetFilePath);
-        });
-        rs.pipe(ws);
-      }));
-    }
-    return Promise.all(promiseArr);
+    fs.writeFileSync(targetFilePath, qsData.bufferData);
+
+    return Promise.resolve(targetFilePath);
   }
 };
