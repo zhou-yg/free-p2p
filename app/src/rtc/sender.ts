@@ -1,19 +1,14 @@
 import Peer from 'peerjs';
 import EE from 'eventemitter3';
 import { DEV_CONNECTION_ID } from './constants';
+import peerConfig from './config';
 
 const eventCenter = new EE();
 
 let lastPeerId:string;
 let conn: Peer.DataConnection | null;
 
-const peer = new Peer(undefined, {
-  debug: 2,
-  host: '207.148.114.234',
-  key: 'peerjs',
-  port: 9000,
-  path: '/myappx',
-});
+const peer = new Peer(undefined, peerConfig);
 
 
 peer.on('open', function (id) {

@@ -34,5 +34,5 @@ export function parseBuffer (data:ArrayBuffer): [string, {}] {
     i++;
   }
 
-  return [event, paramQs];
+  return [event as string, paramQs];
 }

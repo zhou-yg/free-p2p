@@ -1,6 +1,7 @@
 import Peer from 'peerjs';
 import EE from 'eventemitter3';
-import { Events, DEV_CONNECTION_ID } from './constants';
+import { DEV_CONNECTION_ID } from './constants';
+import peerConfig from './config';
 import { parseBuffer } from './receiverUtils';
 
 const eventCenter = new EE();
@@ -8,15 +9,7 @@ const eventCenter = new EE();
 let lastPeerId:string;
 let conn:Peer.DataConnection | null;
 
-console.log(2);
-
-const peer = new Peer(DEV_CONNECTION_ID, {
-  debug: 2,
-  host: '207.148.114.234',
-  key: 'peerjs',
-  port: 9000,
-  path: '/myappx',
-});
+const peer = new Peer(DEV_CONNECTION_ID, peerConfig);
 
 peer.on('open', function (id) {
   // Workaround for peer.reconnect deleting previous id
@@ -39,9 +32,9 @@ peer.on('connection', function (c) {
   //   return;
   // }
 
-  console.log('c.peer: ', c.peer);
+  console.log('Client is connected. His id is = ', c.peer);
   conn = c;
-  console.log("Connected to: " + conn.peer);
+
   ready();
 });
 peer.on('disconnected', function () {
@@ -60,7 +53,6 @@ peer.on('error', function (err) {
 function ready() {
   if (conn) {
     conn.on('data', function (data) {
-      console.log('receive:', data, data.constructor);
 
       let d: [string, {}];
       if (data.constructor === ArrayBuffer) {
