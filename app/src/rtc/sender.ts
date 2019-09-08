@@ -1,7 +1,8 @@
 import Peer from 'peerjs';
 import EE from 'eventemitter3';
-import { DEV_CONNECTION_ID } from './constants';
 import peerConfig from './config';
+
+const CONNECT_FAIL = 'peer-unavailable';
 
 const eventCenter = new EE();
 
@@ -34,9 +35,14 @@ peer.on('close', function () {
 });
 peer.on('error', function (err) {
   console.log(err);
-  alert('' + err);
+  if (err.type === CONNECT_FAIL) {
+    eventCenter.emit('error', {
+      message: err.message,
+    });
+  } else {
+    alert('' + err);
+  }
 });
-
 
 export const connect = (id:string, cb: () => void) => {
   conn = peer.connect(id, {

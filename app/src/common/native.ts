@@ -16,6 +16,9 @@ function resolvePath(p:string | string[]) {
 }
 // a
 export const desktop = {
+  error: (e:any) => {
+    console.log(`e:`, e);
+  },
   [Events.GET_FILE_LIST](param?: any): Promise<IFile[]> {
     const p = param ? param.path : '/';
     const fullPath = resolvePath(p);

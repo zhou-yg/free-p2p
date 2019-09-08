@@ -1,13 +1,18 @@
 import { send, subscribe, connect } from '../sender';
 import Adapter from './index';
 import { DEV_CONNECTION_ID } from '../constants';
-import { resolve } from 'path';
 
 class Browser extends Adapter {
   public connectedPromise:Promise<any>;
   constructor () {
     super('browser');
     this.connectedPromise = this.connect();
+  }
+
+  onError<T> (cb: (e:T) => {}) {
+    subscribe<T>('error', (r) => {
+      cb(r);
+    });
   }
 
   connect () {

@@ -8,10 +8,10 @@ import * as serviceWorker from './serviceWorker';
 import App from './App';
 import './index.css';
 import config from './config';
-
+import {api} from '../../common/api';
 
 export default function render (root) {
-    
+
     const store = createStore(MainReducer, applyMiddleware(thunk));
     ReactDOM.render(
         <Provider store={store}>
@@ -19,6 +19,15 @@ export default function render (root) {
         </Provider>,
         root
     );
+
+    api.onError((e) => {
+      store.dispatch({
+        type: 'SET_ERROR',
+        value: e,
+      });
+    });
+
+    return store;
 }
 
 // If you want your app to work offline and load faster, you can change
